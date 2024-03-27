@@ -102,9 +102,21 @@ public class HopingRabbitsGame {
 
         // Check if rabbit can jump (o/x and empty position in front of x/o)
         // And if rabbit can jump, jump and update game state
+        if (rabbit == Rabbit.X) {
+            movableRabbitPosition = currentGameState.indexOf("xo_");
+            if (tryUpdatingRabbitPosition(rabbit, movableRabbitPosition, movableRabbitPosition + 2)) {
+                return true;
+            }
+        } else {
+            movableRabbitPosition = currentGameState.indexOf("_xo");
+            if (tryUpdatingRabbitPosition(rabbit, movableRabbitPosition + 2, movableRabbitPosition)) {
+                return true;
+            }
+        }
 
         return false;
     }
+
 
     /**
      * Return true if the game is over. The game is over if the two teams have swapped
@@ -146,7 +158,11 @@ public class HopingRabbitsGame {
      */
     String getState() {
         StringBuilder state = new StringBuilder();
-
+        for (Rabbit rabbit : gameState) {
+            if (rabbit == Rabbit.X) { state.append("x"); }
+            else if (rabbit == Rabbit.O) { state.append("o"); }
+            else { state.append("_"); } // rabbit == null
+        }
         return state.toString();
     }
 

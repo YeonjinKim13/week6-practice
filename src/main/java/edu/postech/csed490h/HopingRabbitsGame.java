@@ -130,6 +130,11 @@ public class HopingRabbitsGame {
      * @return true if the game is stuck, false otherwise
      */
     boolean isStuck() {
+        String currentBoard = this.getState();
+        String[] movableStates = {"x_", "xo_", "_o", "_xo"};
+        for (String state : movableStates) {
+            if (currentBoard.contains(state)) { return false; }
+        }
         return true;
     }
 
